@@ -1,0 +1,16 @@
+{
+    "name": "jerome-rdlv/custom-scripts",
+    "description": "Insert custom scripts in pages",
+    "homepage": "https://github.com/jerome-rdlv/custom-scripts",
+    "type": "wordpress-muplugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jérôme Mulsant",
+            "homepage": "https://rue-de-la-vieille.fr/"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    }
+}
