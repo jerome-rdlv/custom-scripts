@@ -1,13 +1,14 @@
 <?php
 
 /**
-Plugin Name: Custom Scripts
-Author: Jérôme Mulsant
-Author URI: https://rue-de-la-vieille.fr/
-Description: Insert custom scripts in pages
-License: MIT License
-Version: GIT
-*/
+ * Plugin Name: Custom Scripts
+ * Plugin URI: https://gitlab.rue-de-la-vieille.fr/jerome/custom-scripts
+ * Author: Jérôme Mulsant
+ * Author URI: https://rue-de-la-vieille.fr/
+ * Description: Insert custom scripts in pages
+ * License: MIT License
+ * Version: GIT
+ */
 
 namespace Rdlv\WordPress\CustomScripts;
 
