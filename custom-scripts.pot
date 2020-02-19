@@ -1,0 +1,71 @@
+# Copyright (C) 2020 Jérôme Mulsant
+# This file is distributed under the same license as the Custom Tags plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Custom Tags GIT\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/custom-tags\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-02-19T11:28:50+01:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Domain: custom-tags\n"
+
+#. Plugin Name of the plugin
+msgid "Custom Tags"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://gitlab.rue-de-la-vieille.fr/jerome/custom-scripts"
+msgstr ""
+
+#. Description of the plugin
+msgid "Insert custom scripts in pages"
+msgstr ""
+
+#. Author of the plugin
+msgid "Jérôme Mulsant"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://rue-de-la-vieille.fr/"
+msgstr ""
+
+#: custom-tags.php:64
+#: custom-tags.php:65
+#: custom-tags.php:82
+#: custom-tags.php:86
+msgid "Tags"
+msgstr ""
+
+#: custom-tags.php:89
+msgid "Tags à insérer dans la page (inclure les balises &lt;script&gt; le cas échéant)"
+msgstr ""
+
+#: custom-tags.php:91
+msgid "Ajouter un tag"
+msgstr ""
+
+#: custom-tags.php:96
+msgid "Position"
+msgstr ""
+
+#: custom-tags.php:108
+msgid "Script"
+msgstr ""
+
+#: custom-tags.php:134
+msgid "Entête"
+msgstr ""
+
+#: custom-tags.php:135
+msgid "Juste après &lt;body&gt;"
+msgstr ""
+
+#: custom-tags.php:136
+msgid "Juste avant &lt;/body&gt;"
+msgstr ""
