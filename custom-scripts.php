@@ -61,14 +61,16 @@ class CustomScripts
     public function plugins_loaded()
     {
         if (function_exists('acf_add_options_page')) {
-            acf_add_options_page([
-                                     'page_title'  => __('Scripts', 'custom-scripts'),
-                                     'menu_title'  => __('Scripts', 'custom-scripts'),
-                                     'menu_slug'   => self::PAGE_SLUG,
-                                     'capability'  => 'edit_posts',
-                                     'parent_slug' => 'options-general.php',
-                                     'post_id'     => self::POST_ID,
-                                 ]);
+            acf_add_options_page(
+                [
+                    'page_title'  => __('Scripts', 'custom-scripts'),
+                    'menu_title'  => __('Scripts', 'custom-scripts'),
+                    'menu_slug'   => self::PAGE_SLUG,
+                    'capability'  => 'edit_posts',
+                    'parent_slug' => 'options-general.php',
+                    'post_id'     => self::POST_ID,
+                ]
+            );
         }
     }
 
