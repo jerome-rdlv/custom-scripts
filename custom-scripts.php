@@ -18,7 +18,7 @@ class CustomScripts
 {
     const TEXTDOMAIN = 'custom-scripts';
     const PAGE_SLUG = 'custom-scripts';
-    const POST_ID = 'custom-scripts';
+    const FIELD_NAME = 'custom_scripts';
 
     const SCRIPT_INC_HEAD = 'head';
     const SCRIPT_INC_BODY_TOP = 'body_top';
@@ -26,6 +26,9 @@ class CustomScripts
     const SCRIPT_INC_DISABLED = 'disabled';
 
     private $scriptIncs;
+
+    /** @var string */
+    private $field_name;
 
     public function __construct()
     {
@@ -68,7 +71,6 @@ class CustomScripts
                     'menu_slug'   => self::PAGE_SLUG,
                     'capability'  => 'edit_posts',
                     'parent_slug' => 'options-general.php',
-                    'post_id'     => self::POST_ID,
                 ]
             );
         }
@@ -76,27 +78,31 @@ class CustomScripts
 
     public function init()
     {
+        $this->field_name = apply_filters('custom_scripts_field_name', self::FIELD_NAME);
+
         $type = 'textarea';
         if (function_exists('acf_get_field_types') && array_key_exists('acf_code_field', acf_get_field_types())) {
             $type = 'acf_code_field';
         }
         acf_add_local_field_group(
             [
-                'key'                   => 'group_custom_scripts',
+                'key'                   => 'custom_scripts_group',
                 'title'                 => __('Scripts', 'custom-scripts'),
                 'fields'                => [
                     [
-                        'key'          => 'field_custom_scripts',
+                        'key'          => 'custom_scripts_field',
                         'label'        => __('Scripts', 'custom-scripts'),
-                        'name'         => 'scripts',
+                        'name'         => $this->field_name,
                         'type'         => 'repeater',
-                        'instructions' => __('Script à insérer dans la page (inclure les balises &lt;script&gt; le cas échéant)',
-                                             'custom-scripts'),
+                        'instructions' => __(
+                            'Script à insérer dans la page (inclure les balises &lt;script&gt; le cas échéant)',
+                            'custom-scripts'
+                        ),
                         'button_label' => __('Ajouter un script', 'custom-scripts'),
                         'layout'       => 'row',
                         'sub_fields'   => [
                             [
-                                'key'               => 'field_custom_scripts_position',
+                                'key'               => 'custom_scripts_field_position',
                                 'label'             => __('Position', 'custom-scripts'),
                                 'name'              => 'position',
                                 'type'              => 'radio',
@@ -108,7 +114,7 @@ class CustomScripts
                                 'return_format'     => 'value',
                             ],
                             [
-                                'key'   => 'field_custom_scripts_script',
+                                'key'   => 'custom_scripts_field_script',
                                 'label' => __('Script', 'custom-scripts'),
                                 'name'  => 'script',
                                 'type'  => $type,
@@ -144,21 +150,21 @@ class CustomScripts
 
         add_action('wp_head', function () {
             $this->scripts_inc(self::SCRIPT_INC_HEAD);
-        }, 0);
+        },         0);
         add_action('wp_body_open', function () {
             $this->scripts_inc(self::SCRIPT_INC_BODY_TOP);
         });
         add_action('wp_footer', function () {
             $this->scripts_inc(self::SCRIPT_INC_BODY_BOTTOM);
-        }, 100);
+        },         100);
 
-        $filter_name = sprintf('acf/load_field/name=%s', apply_filters('custom_scripts_field_name', 'scripts'));
+        $filter_name = sprintf('acf/load_field/name=%s', $this->field_name);
         add_filter($filter_name, [$this, 'scripts_insert_position']);
     }
 
     public function scripts_inc($position)
     {
-        $scripts = get_field('scripts', self::POST_ID);
+        $scripts = get_field($this->field_name, 'options');
         if ($scripts) {
             foreach ($scripts as $script) {
                 if ($script['position'] === $position) {
