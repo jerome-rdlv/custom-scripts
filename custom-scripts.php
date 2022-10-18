@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name: Custom Scripts
- * Plugin URI: https://gitlab.rue-de-la-vieille.fr/jerome/custom-scripts
+ * Plugin URI: https://github.com/jerome-rdlv/custom-scripts
  * Author: Jérôme Mulsant
  * Author URI: https://rue-de-la-vieille.fr/
  * Description: Insert custom scripts in pages
