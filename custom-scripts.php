@@ -66,10 +66,10 @@ class CustomScripts
         if (function_exists('acf_add_options_page')) {
             acf_add_options_page(
                 [
-                    'page_title'  => __('Scripts', 'custom-scripts'),
-                    'menu_title'  => __('Scripts', 'custom-scripts'),
-                    'menu_slug'   => self::PAGE_SLUG,
-                    'capability'  => 'edit_posts',
+                    'page_title' => __('Scripts', 'custom-scripts'),
+                    'menu_title' => __('Scripts', 'custom-scripts'),
+                    'menu_slug' => self::PAGE_SLUG,
+                    'capability' => 'edit_posts',
                     'parent_slug' => 'options-general.php',
                 ]
             );
@@ -86,66 +86,66 @@ class CustomScripts
         }
         acf_add_local_field_group(
             [
-                'key'                   => 'custom_scripts_group',
-                'title'                 => __('Scripts', 'custom-scripts'),
-                'fields'                => [
+                'key' => 'custom_scripts_group',
+                'title' => __('Scripts', 'custom-scripts'),
+                'fields' => [
                     [
-                        'key'          => 'custom_scripts_field',
-                        'label'        => __('Scripts', 'custom-scripts'),
-                        'name'         => $this->field_name,
-                        'type'         => 'repeater',
+                        'key' => 'custom_scripts_field',
+                        'label' => __('Scripts', 'custom-scripts'),
+                        'name' => $this->field_name,
+                        'type' => 'repeater',
                         'instructions' => __(
                             'Script à insérer dans la page (inclure les balises &lt;script&gt; le cas échéant)',
                             'custom-scripts'
                         ),
                         'button_label' => __('Ajouter un script', 'custom-scripts'),
-                        'layout'       => 'row',
-                        'sub_fields'   => [
+                        'layout' => 'row',
+                        'sub_fields' => [
                             [
-                                'key'               => 'custom_scripts_field_position',
-                                'label'             => __('Position', 'custom-scripts'),
-                                'name'              => 'position',
-                                'type'              => 'radio',
-                                'allow_null'        => 0,
-                                'other_choice'      => 0,
+                                'key' => 'custom_scripts_field_position',
+                                'label' => __('Position', 'custom-scripts'),
+                                'name' => 'position',
+                                'type' => 'radio',
+                                'allow_null' => 0,
+                                'other_choice' => 0,
                                 'save_other_choice' => 0,
-                                'default_value'     => self::SCRIPT_INC_HEAD,
-                                'layout'            => 'horizontal',
-                                'return_format'     => 'value',
+                                'default_value' => self::SCRIPT_INC_HEAD,
+                                'layout' => 'horizontal',
+                                'return_format' => 'value',
                             ],
                             [
-                                'key'   => 'custom_scripts_field_script',
+                                'key' => 'custom_scripts_field_script',
                                 'label' => __('Script', 'custom-scripts'),
-                                'name'  => 'script',
-                                'type'  => $type,
-                                'rows'  => 5,
-                                'mode'  => 'htmlmixed',
+                                'name' => 'script',
+                                'type' => $type,
+                                'rows' => 5,
+                                'mode' => 'htmlmixed',
                                 'theme' => 'monokai',
                             ],
                         ],
                     ],
                 ],
-                'location'              => [
+                'location' => [
                     [
                         [
-                            'param'    => 'options_page',
+                            'param' => 'options_page',
                             'operator' => '==',
-                            'value'    => self::PAGE_SLUG,
+                            'value' => self::PAGE_SLUG,
                         ],
                     ],
                 ],
-                'style'                 => 'seamless',
-                'label_placement'       => 'top',
+                'style' => 'seamless',
+                'label_placement' => 'top',
                 'instruction_placement' => 'label',
-                'modified'              => 1560279377,
+                'modified' => 1560279377,
             ]
         );
 
         $this->scriptIncs = [
-            self::SCRIPT_INC_HEAD        => __('Entête', 'custom-scripts'),
-            self::SCRIPT_INC_BODY_TOP    => __('Juste après &lt;body&gt;', 'custom-scripts'),
+            self::SCRIPT_INC_HEAD => __('Entête', 'custom-scripts'),
+            self::SCRIPT_INC_BODY_TOP => __('Juste après &lt;body&gt;', 'custom-scripts'),
             self::SCRIPT_INC_BODY_BOTTOM => __('Juste avant &lt;/body&gt;', 'custom-scripts'),
-            self::SCRIPT_INC_DISABLED    => __('Désactivé', 'custom-scripts'),
+            self::SCRIPT_INC_DISABLED => __('Désactivé', 'custom-scripts'),
         ];
 
         add_action('wp_head', function () {
