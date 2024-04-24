@@ -16,29 +16,21 @@ new CustomScripts();
 
 class CustomScripts
 {
-    const TEXTDOMAIN = 'custom-scripts';
-    const PAGE_SLUG = 'custom-scripts';
-    const FIELD_NAME = 'custom_scripts';
+    private const TEXTDOMAIN = 'custom-scripts';
+    private const PAGE_SLUG = 'custom-scripts';
+    private const FIELD_NAME = 'custom_scripts';
 
-    const SCRIPT_INC_HEAD = 'head';
-    const SCRIPT_INC_BODY_TOP = 'body_top';
-    const SCRIPT_INC_BODY_BOTTOM = 'body_bottom';
-    const SCRIPT_INC_DISABLED = 'disabled';
+    private const SCRIPT_INC_HEAD = 'head';
+    private const SCRIPT_INC_BODY_TOP = 'body_top';
+    private const SCRIPT_INC_BODY_BOTTOM = 'body_bottom';
+    private const SCRIPT_INC_DISABLED = 'disabled';
 
-    private $scriptIncs;
-
-    /** @var string */
-    private $field_name;
+    private array $scriptIncs;
+    private string $field_name;
 
     public function __construct()
     {
-        if (!function_exists('acf_add_options_page') || !function_exists('get_field')) {
-            return;
-        }
-
-        add_action('plugins_loaded', [$this, 'load_text_domain']);
         add_action('plugins_loaded', [$this, 'plugins_loaded']);
-        add_action('init', [$this, 'init']);
     }
 
     /**
@@ -46,23 +38,31 @@ class CustomScripts
      * installed anywhere, in plugins/ or in mu-plugins/ for example.
      * @return bool
      */
-    public function load_text_domain()
+    public function load_text_domain(): bool
     {
         /** This filter is documented in wp-includes/l10n.php */
         $locale = apply_filters('plugin_locale', determine_locale(), self::TEXTDOMAIN);
-        $mofile = self::TEXTDOMAIN . '-' . $locale . '.mo';
+        $mofile = self::TEXTDOMAIN.'-'.$locale.'.mo';
 
         // Try to load from the languages directory first.
-        if (load_textdomain(self::TEXTDOMAIN, WP_LANG_DIR . '/plugins/' . $mofile)) {
+        if (load_textdomain(self::TEXTDOMAIN, WP_LANG_DIR.'/plugins/'.$mofile)) {
             return true;
         }
 
         // Load from plugin languages folder.
-        return load_textdomain(self::TEXTDOMAIN, __DIR__ . '/languages/' . $mofile);
+        return load_textdomain(self::TEXTDOMAIN, __DIR__.'/languages/'.$mofile);
     }
 
-    public function plugins_loaded()
+    public function plugins_loaded(): void
     {
+        if (!function_exists('acf_add_options_page') || !function_exists('get_field')) {
+            return;
+        }
+
+        $this->load_text_domain();
+
+        add_action('init', [$this, 'init']);
+
         if (function_exists('acf_add_options_page')) {
             acf_add_options_page(
                 [
@@ -76,7 +76,7 @@ class CustomScripts
         }
     }
 
-    public function init()
+    public function init(): void
     {
         $this->field_name = apply_filters('custom_scripts_field_name', self::FIELD_NAME);
 
@@ -150,19 +150,19 @@ class CustomScripts
 
         add_action('wp_head', function () {
             $this->scripts_inc(self::SCRIPT_INC_HEAD);
-        },         0);
+        }, 0);
         add_action('wp_body_open', function () {
             $this->scripts_inc(self::SCRIPT_INC_BODY_TOP);
         });
         add_action('wp_footer', function () {
             $this->scripts_inc(self::SCRIPT_INC_BODY_BOTTOM);
-        },         100);
+        }, 100);
 
         $filter_name = sprintf('acf/load_field/name=%s', $this->field_name);
         add_filter($filter_name, [$this, 'scripts_insert_position']);
     }
 
-    public function scripts_inc($position)
+    public function scripts_inc($position): void
     {
         $scripts = get_field($this->field_name, 'options');
         if ($scripts) {
